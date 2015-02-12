@@ -4,6 +4,8 @@
 
 import time
 
+from marionette import By
+
 from firefox_ui_harness.decorators import skip_under_xvfb
 from firefox_ui_harness.testcase import FirefoxTestCase
 
@@ -46,7 +48,7 @@ class TestStarInAutocomplete(FirefoxTestCase):
             self.marionette.navigate(self.marionette.absolute_url('layout/mozilla_grants.html'))
 
         self.browser.menubar.select('Bookmarks', 'Bookmark This Page')
-        done_button = self.marionette.find_element('id', 'editBookmarkPanelDoneButton')
+        done_button = self.marionette.find_element(By.ID, 'editBookmarkPanelDoneButton')
         done_button.click()
 
         self.clear_history()

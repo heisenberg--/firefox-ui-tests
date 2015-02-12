@@ -20,7 +20,7 @@ class NavBar(BaseLib):
 
         :returns: Reference to the back button.
         """
-        return self.marionette.find_element('id', 'back-button')
+        return self.marionette.find_element(By.ID, 'back-button')
 
     @property
     def forward_button(self):
@@ -28,7 +28,7 @@ class NavBar(BaseLib):
 
         :returns: Reference to the forward button.
         """
-        return self.marionette.find_element('id', 'forward-button')
+        return self.marionette.find_element(By.ID, 'forward-button')
 
     @property
     def home_button(self):
@@ -36,7 +36,7 @@ class NavBar(BaseLib):
 
         :returns: Reference to the home button element
         """
-        return self.marionette.find_element('id', 'home-button')
+        return self.marionette.find_element(By.ID, 'home-button')
 
     @use_class_as_property('ui.toolbars.LocationBar')
     def locationbar(self):
@@ -52,7 +52,7 @@ class NavBar(BaseLib):
 
         :returns: Reference to the menu button element.
         """
-        return self.marionette.find_element('id', 'PanelUI-menu-button')
+        return self.marionette.find_element(By.ID, 'PanelUI-menu-button')
 
 
 class LocationBar(BaseLib):
@@ -94,8 +94,8 @@ class LocationBar(BaseLib):
 
         :returns: Reference to the urlbar context menu.
         """
-        parent = self.urlbar.find_element('anon attribute', {'anonid': 'textbox-input-box'})
-        return parent.find_element('anon attribute', {'anonid': 'input-box-contextmenu'})
+        parent = self.urlbar.find_element(By.ANON_ATTRIBUTE, {'anonid': 'textbox-input-box'})
+        return parent.find_element(By.ANON_ATTRIBUTE, {'anonid': 'input-box-contextmenu'})
 
     @property
     def favicon(self):
@@ -131,7 +131,7 @@ class LocationBar(BaseLib):
         :returns: Reference to the urlbar contextmenu entry.
         """
         # TODO: This method should be implemented via the menu API.
-        entries = self.contextmenu.find_elements('css selector', 'menuitem')
+        entries = self.contextmenu.find_elements(By.CSS_SELECTOR, 'menuitem')
         filter_on = 'cmd_%s' % action
         found = [e for e in entries if e.get_attribute('cmd') == filter_on]
         return found[0] if len(found) else None
@@ -142,7 +142,7 @@ class LocationBar(BaseLib):
 
         :returns: Reference to the history drop marker.
         """
-        return self.urlbar.find_element('anon attribute', {'anonid': 'historydropmarker'})
+        return self.urlbar.find_element(By.ANON_ATTRIBUTE, {'anonid': 'historydropmarker'})
 
     @use_class_as_property('ui.toolbars.IdentityPopup')
     def identity_popup(self):
@@ -218,7 +218,7 @@ class LocationBar(BaseLib):
 
         :returns: Reference to the urlbar input.
         """
-        return self.urlbar.find_element('anon attribute', {'anonid': 'input'})
+        return self.urlbar.find_element(By.ANON_ATTRIBUTE, {'anonid': 'input'})
 
     @property
     def value(self):
@@ -253,7 +253,7 @@ class AutocompleteResults(BaseLib):
               arguments[0].hidePopup();
             """, script_args=[self.popup])
         else:
-            (self.marionette.find_element('id', 'urlbar')
+            (self.marionette.find_element(By.ID, 'urlbar')
                             .send_keys(Keys.ESCAPE))
         Wait(self.marionette).until(
             lambda _: not self.is_open)
@@ -328,7 +328,7 @@ class AutocompleteResults(BaseLib):
         """
         :returns: The autocomplete result container node.
         """
-        return self.popup.find_element('anon attribute',
+        return self.popup.find_element(By.ANON_ATTRIBUTE,
                                        {'anonid': 'richlistbox'})
 
 
