@@ -7,6 +7,8 @@ from marionette.errors import NoSuchElementException
 from firefox_ui_harness.decorators import skip_under_xvfb
 from firefox_ui_harness.testcase import FirefoxTestCase
 
+from firefox_puppeteer.api.keys import Keys
+
 
 class TestLocationBar(FirefoxTestCase):
 
@@ -135,3 +137,71 @@ class TestAutoCompleteResults(FirefoxTestCase):
             self.assertTrue(len(all_matches) > 0)
             for match_fragment in all_matches:
                 self.assertIn(match_fragment, (input_text, input_text.upper()))
+
+
+class TestIdentityPopup(FirefoxTestCase):
+
+    def test_box(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.box)
+
+    def test_country_label(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.country_label)
+
+    def test_encryption_label(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.encryption_label)
+
+    def test_encryption_icon(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.encryption_icon)
+
+    def test_host(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.host)
+
+    def test_is_open(self):
+        self.assertEquals(
+            self.browser.navbar.locationbar.identity_popup.is_open, False)
+
+        url = 'https://ssl-ev.mozqa.com'
+        with self.marionette.using_context(self.marionette.CONTEXT_CONTENT):
+            self.marionette.navigate(url)
+        self.browser.navbar.locationbar.favicon.click()
+
+        self.assertEquals(
+            self.browser.navbar.locationbar.identity_popup.is_open, True)
+
+        self.browser.navbar.locationbar.favicon.send_keys(Keys.ESCAPE)
+
+        self.assertEquals(
+            self.browser.navbar.locationbar.identity_popup.is_open, False)
+
+    def test_more_info_button(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.more_info_button)
+
+    def test_organization_label(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.organization_label)
+
+    def test_owner(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.owner)
+
+    def test_owner_location(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.owner_location)
+
+    def test_popup(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.popup)
+
+    def test_permissons(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.permissions)
+
+    def test_verifier(self):
+        self.assertIsNotNone(
+            self.browser.navbar.locationbar.identity_popup.verifier)
