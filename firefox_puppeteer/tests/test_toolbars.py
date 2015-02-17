@@ -171,13 +171,13 @@ class TestIdentityPopup(FirefoxTestCase):
             self.marionette.navigate(url)
         self.browser.navbar.locationbar.favicon.click()
 
-        self.assertEquals(
-            self.browser.navbar.locationbar.identity_popup.is_open, True)
+        self.wait_for_condition(
+            lambda _: self.browser.navbar.locationbar.identity_popup.is_open)
 
         self.browser.navbar.locationbar.favicon.send_keys(Keys.ESCAPE)
 
-        self.assertEquals(
-            self.browser.navbar.locationbar.identity_popup.is_open, False)
+        self.wait_for_condition(
+            lambda _: not self.browser.navbar.locationbar.identity_popup.is_open)
 
     def test_more_info_button(self):
         self.assertIsNotNone(
