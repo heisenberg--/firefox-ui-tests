@@ -173,7 +173,6 @@ class TestIdentityPopup(FirefoxTestCase):
         self.assertEquals(
             self.browser.navbar.locationbar.identity_popup.is_open, True)
 
-        #self.browser.navbar.locationbar.favicon.send_keys(Keys.ESCAPE)
         self.browser.navbar.locationbar.favicon.click()
 
         self.assertEquals(
