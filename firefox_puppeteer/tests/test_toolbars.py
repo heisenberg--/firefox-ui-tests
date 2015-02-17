@@ -161,6 +161,7 @@ class TestIdentityPopup(FirefoxTestCase):
         self.assertIsNotNone(
             self.browser.navbar.locationbar.identity_popup.host)
 
+    @skip_under_xvfb
     def test_is_open(self):
         self.assertEquals(
             self.browser.navbar.locationbar.identity_popup.is_open, False)
@@ -173,7 +174,7 @@ class TestIdentityPopup(FirefoxTestCase):
         self.assertEquals(
             self.browser.navbar.locationbar.identity_popup.is_open, True)
 
-        self.browser.navbar.locationbar.favicon.click()
+        self.browser.navbar.locationbar.favicon.send_keys(Keys.ESCAPE)
 
         self.assertEquals(
             self.browser.navbar.locationbar.identity_popup.is_open, False)
